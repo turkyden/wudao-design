@@ -129,18 +129,49 @@
           </div>
         </div>
       </div>
+
+      <el-dialog
+        title="输入口令"
+        :visible.sync="dialogVisible"
+        :close-on-press-escape="false"
+        :close-on-click-modal="false"
+        :show-close="false"
+        width="400px">
+        <el-input v-model="code" placeholder="请输入口令码"></el-input>
+        <br><br>
+        <div class="text-center">联系 @dengju 要产品体验口令</div>
+        <img class="w-full" src="@/assets/qrcode.png" alt="qrcode">
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-
+const CODE = 8888;
 export default {
   name: "App",
   data() {
     return {
+      dialogVisible: false,
       active: 0,
+      code: '',
       url: 'https://udify.app/chat/HGgMphMK9n6Ek7eN'
+    }
+  },
+  watch: {
+    code(value) {
+      if(value == CODE) {
+        this.dialogVisible = false;
+        window.localStorage.setItem('wudao_code', CODE);
+      }
+    }
+  },
+  mounted() {
+    const code = window.localStorage.getItem('wudao_code');
+    if(code && (code == CODE)) {
+      this.dialogVisible = false;
+    }else{
+      this.dialogVisible = true;
     }
   }
 };
