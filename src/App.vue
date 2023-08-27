@@ -115,7 +115,7 @@
             <div class="bg-gray-100">
               <iframe
                 class="rounded-xl"
-                src="https://udify.app/chatbot/HGgMphMK9n6Ek7eN"
+                src="https://udify.app/chat/HGgMphMK9n6Ek7eN"
                 style="width: 100%; height: calc(100vh - 74px);"
                 frameborder="0"
                 allow="microphone"
