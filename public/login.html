@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Authing Guard</title>
+  <script type="text/javascript" src="https://cdn.authing.co/packages/guard/latest/guard.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.authing.co/packages/guard/latest/guard.min.css" />
+</head>
+
+<body>
+  <div id="authing-guard-container"></div>
+
+  <script>
+    const guard = new GuardFactory.Guard({
+      appId: '64ed5b015827de3832e48c3e'
+    })
+
+    guard.start('#authing-guard-container').then(userInfo => {
+      console.log('userInfo in start: ', userInfo)
+      window.location.href = '/';
+    })
+  </script>
+</body>
+</html>

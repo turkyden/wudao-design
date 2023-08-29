@@ -8,7 +8,20 @@
           <div>
             <div class="text-xl font-semibold">WuDao.Design</div>
           </div>
-          <div class="flex items-center flex-shrink-0">
+          <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
+            <div class="avatar-wrapper flex items-center space-x-2">
+              <img class="user-avatar shadow-sm border border-solid border-gray-300 rounded-full w-10 h-10" :src="userInfo.photo" />
+              <div>{{userInfo.name}}</div>
+              <i class="el-icon-caret-bottom"></i>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item><i class="el-icon-user pr-1"></i>个人中心</el-dropdown-item>
+              <el-dropdown-item @click.native="logout">
+                <span class="block"><i class="el-icon-switch-button pr-1"></i>退出登录</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <!-- <div class="flex items-center flex-shrink-0">
             <div class="">
               <div
                 class="relative inline-block text-left"
@@ -31,9 +44,10 @@
                         line-height: 32px;
                       "
                     >
-                      <img class="w-10 h-10 rounded-full" src="https://avatars.githubusercontent.com/u/24560160?v=4" alt="">
+                      <img class="w-10 h-10 rounded-full" :src="userInfo.photo" alt="photo">
                     </div>
-                    Dengju<svg
+                    {{userInfo.name}}
+                    <svg
                       width="12"
                       height="12"
                       viewBox="0 0 12 12"
@@ -58,7 +72,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -70,7 +84,7 @@
             <div
               class="text-gray-700 flex items-center h-9 pl-3 space-x-2 rounded-lg"
               :class="active === 0 ? 'bg-white font-semibold' : 'font-medium'"
-              @click="(url = 'https://udify.app/chat/HGgMphMK9n6Ek7eN') && (active = 0)"
+              @click="active = 0"
               style="box-shadow: rgba(16, 24, 40, 0.05) 0px 1px 2px"
               ><svg
                 width="16"
@@ -91,7 +105,7 @@
             <div
               class="text-gray-700 flex items-center h-9 pl-3 space-x-2 rounded-lg"
               :class="active === 1 ? 'bg-white font-semibold' : 'font-medium'"
-              @click="(url = 'https://service-56dnmui5-1253291516.sh.apigw.tencentcs.com/release/') && (active = 1)"
+              @click="active = 1"
               style=""
               ><svg
                 width="16"
@@ -118,8 +132,18 @@
           <div class="h-full p-2">
             <div class="bg-gray-100">
               <iframe
+                v-show="active === 0"
                 class="rounded-xl"
-                :src="url"
+                src="https://udify.app/chat/HGgMphMK9n6Ek7eN"
+                style="width: 100%; height: calc(100vh - 74px);"
+                frameborder="0"
+                allow="microphone"
+              >
+              </iframe>
+              <iframe
+                v-show="active === 1"
+                class="rounded-xl"
+                src="https://service-56dnmui5-1253291516.sh.apigw.tencentcs.com/release/"
                 style="width: 100%; height: calc(100vh - 74px);"
                 frameborder="0"
                 allow="microphone"
@@ -155,7 +179,10 @@ export default {
       dialogVisible: false,
       active: 0,
       code: '',
-      url: 'https://udify.app/chat/HGgMphMK9n6Ek7eN'
+      userInfo: {
+        name: '-',
+        photo: "https://files.authing.co/authing-console/default-user-avatar.png"
+      }
     }
   },
   watch: {
@@ -167,12 +194,31 @@ export default {
     }
   },
   mounted() {
-    const code = window.localStorage.getItem('wudao_code');
-    if(code && (code == CODE)) {
-      this.dialogVisible = false;
-    }else{
-      this.dialogVisible = true;
-    }
+    this.getUserInfo();
+    // const code = window.localStorage.getItem('wudao_code');
+    // if(code && (code == CODE)) {
+    //   this.dialogVisible = false;
+    // }else{
+    //   this.dialogVisible = true;
+    // }
+  },
+  methods: {
+    async getUserInfo() {
+      // 获取用户信息
+      try {
+        const userInfo = await this.$guard.trackSession();
+        if(userInfo) {
+          this.userInfo = userInfo;
+        }else{
+          window.location.href = '/login.html';
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    logout() {
+      this.$guard.logout();
+    },
   }
 };
 </script>
