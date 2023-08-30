@@ -6,7 +6,7 @@
       >
         <div class="flex flex-1 items-center justify-between px-4">
           <div>
-            <div class="text-xl font-semibold">WuDao.Design</div>
+            <div class="text-xl font-semibold">吾道 DESIGN</div>
           </div>
           <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
             <div class="avatar-wrapper flex items-center space-x-2">
