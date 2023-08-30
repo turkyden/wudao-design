@@ -9,7 +9,7 @@ import { GuardPlugin } from '@authing/guard-vue2'
 import '@authing/guard-vue2/dist/esm/guard.min.css'
 
 Vue.use(GuardPlugin, {
-  appId: "64ed5b015827de3832e48c3e",
+  appId: "64ef523289c73108a434aee3",
 
   // 如果你使用的是私有化部署的 Authing 服务，需要传入自定义 host，如:
   // host: 'https://my-authing-app.example.com',
