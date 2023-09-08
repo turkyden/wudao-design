@@ -83,9 +83,8 @@
           <div class="space-y-4">
             <div
               class="text-gray-700 flex items-center h-9 pl-3 space-x-2 rounded-lg"
-              :class="active === 0 ? 'bg-white font-semibold' : 'font-medium'"
+              :class="active === 0 ? 'bg-white font-semibold shadow-sm' : 'font-medium'"
               @click="active = 0"
-              style="box-shadow: rgba(16, 24, 40, 0.05) 0px 1px 2px"
               ><svg
                 width="16"
                 height="16"
@@ -104,7 +103,7 @@
             >
             <div
               class="text-gray-700 flex items-center h-9 pl-3 space-x-2 rounded-lg"
-              :class="active === 1 ? 'bg-white font-semibold' : 'font-medium'"
+              :class="active === 1 ? 'bg-white font-semibold shadow-sm' : 'font-medium'"
               @click="active = 1"
               style=""
               ><svg
@@ -122,10 +121,26 @@
                   stroke-linejoin="round"
                 ></path>
               </svg>
-              <div class="text-sm">灵感渲染</div></div
-            >
-            
+              <div class="text-sm">灵感渲染</div></div>
+              <div
+              class="text-gray-700 flex items-center h-9 pl-3 space-x-2 rounded-lg"
+              :class="active === 2 ? 'bg-white font-semibold shadow-sm' : 'font-medium'"
+              @click="active = 2"
+              style=""
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25" />
+              </svg>
+              <div class="text-sm">模型管理</div></div>
           </div>
+
+
+          <a href="https://txc.qq.com/products/607911" target="_blank" class="absolute bottom-10 left-0 px-8 flex items-center space-x-2 text-black/50 hover:text-blue-600 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            <div>帮助文档</div>
+          </a>
         </div>
 
         <div class="grow">
@@ -133,7 +148,7 @@
             <div class="bg-gray-100">
               <iframe
                 v-show="active === 0"
-                class="rounded-xl"
+                class="rounded-xl bg-white"
                 src="https://udify.app/chat/HGgMphMK9n6Ek7eN"
                 style="width: 100%; height: calc(100vh - 74px);"
                 frameborder="0"
@@ -142,8 +157,17 @@
               </iframe>
               <iframe
                 v-show="active === 1"
-                class="rounded-xl"
+                class="rounded-xl bg-white"
                 src="https://service-56dnmui5-1253291516.sh.apigw.tencentcs.com/release/"
+                style="width: 100%; height: calc(100vh - 74px);"
+                frameborder="0"
+                allow="microphone"
+              >
+              </iframe>
+              <iframe
+                v-show="active === 2"
+                class="rounded-xl bg-white"
+                src="https://service-e5qn3icl-1253291516.sh.apigw.tencentcs.com/"
                 style="width: 100%; height: calc(100vh - 74px);"
                 frameborder="0"
                 allow="microphone"
