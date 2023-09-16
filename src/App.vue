@@ -5,9 +5,7 @@
         class="sticky top-0 left-0 right-0 z-20 flex bg-gray-100 grow-0 shrink-0 basis-auto h-14"
       >
         <div class="flex flex-1 items-center justify-between px-4">
-          <div>
-            <div class="text-xl font-semibold">吾道 DESIGN</div>
-          </div>
+          <img src="@/assets/wudao.png" />
           <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
             <div class="avatar-wrapper flex items-center space-x-2">
               <img class="user-avatar shadow-sm border border-solid border-gray-300 rounded-full w-10 h-10" :src="userInfo.photo" />
@@ -217,7 +215,7 @@ export default {
       }
     }
   },
-  mounted() {
+  beforeMount() {
     this.getUserInfo();
     // const code = window.localStorage.getItem('wudao_code');
     // if(code && (code == CODE)) {
