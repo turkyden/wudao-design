@@ -1,10 +1,10 @@
 <template>
-  <router-view></router-view>
+  <div>s</div>
 </template>
 
 <script>
 export default {
-
+  name: 'dashboard-sd'
 }
 </script>
 

@@ -1,10 +1,10 @@
 <template>
-  <router-view></router-view>
+  <div>dss</div>
 </template>
 
 <script>
 export default {
-
+  name: 'dashboard-model'
 }
 </script>
 
