@@ -33,9 +33,15 @@
           class="hidden md:flex gap-8 items-center justify-between mt-1"
         ></div>
       </div>
-      <router-link to="/dashboard" class="flex flex-row items-center justify-end w-full">
-        <div class="bg-gray-700 hover:bg-gray-800 transition text-white px-4 py-2 rounded-lg">Sign in</div>
+      <router-link v-if="userInfo" to="/dashboard" class="flex flex-row items-center justify-end">
+        <div class="bg-white/10 hover:bg-white/20 transition text-white px-4 py-2 rounded-full flex items-center space-x-4">
+          <img class="user-avatar shadow-sm border border-solid border-gray-300 rounded-full w-8 h-8" :src="userInfo.photo" />
+          <div>{{userInfo.name}}</div>
+        </div>
       </router-link>
+      <div v-else @click="showLoginModel" class="flex flex-row items-center justify-end">
+        <div class="bg-gray-700 hover:bg-gray-800 transition text-white px-4 py-2 rounded-lg">Sign in</div>
+      </div>
     </div>
     
     <div>
@@ -57,9 +63,9 @@
           <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-white font-tencent">AIGC 时代的园林景观渲染</h1>
           <h2 class="text-md md:text-lg lg:text-xl font-normal mt-1 text-white font-tencent">从草稿生成高质量效果方案</h2>
         </div>
-        <router-link to="/dashboard" class="z-10">
+        <div @click="userInfo ? $router.push('/dashboard') : showLoginModel()" class="z-10">
           <button class="box-border mt-10 bg-slate-50 px-4 py-2 border rounded text-black font-semibold hover:bg-transparent hover:text-white hover:border hover:border-white transition">快速开始</button>
-        </router-link>
+        </div>
         <div class="middle-bg absolute top-0 left-0 right-0 w-full z-0 pointer-events-none">
           <img src="@/assets/home/bg.png" alt="background" class="w-full">
         </div>
@@ -73,12 +79,48 @@
 
       </div>
     </div>
+
+    <!-- 登录挂载位置 -->
+    <div id="authing-guard-container"></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "Home-d",
+  data() {
+    return {
+      hasInitialed: false,
+    }
+  },
+  computed: {
+    ...mapGetters(['userInfo'])
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    async init() {
+      const userInfo = await this.$guard.trackSession();
+      this.$store.dispatch('setuserInfo', userInfo);
+    },
+    showLoginModel() {
+      if(!this.hasInitialed) {
+        // 使用 start 方法挂载 Guard 组件到你指定的 DOM 节点，登录成功后返回 userInfo
+        this.$guard.start("#authing-guard-container").then((userInfo) => {
+          console.log("userInfo: ", userInfo);
+          setTimeout(() => {
+            this.$guard.hide();
+            this.$router.push('/dashboard');
+          }, 2000);
+        });
+        this.hasInitialed = true;
+      }else{
+        this.$guard.show();
+      }
+    },
+  },
 };
 </script>
 
@@ -93,8 +135,14 @@ html {
   color: #000
 }
 
-body {
+.dark {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,transparent,rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+.authing-ant-modal-mask{
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)
 }
 </style>

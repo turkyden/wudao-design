@@ -10,8 +10,8 @@
           </router-link>
           <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
             <div class="avatar-wrapper flex items-center space-x-2">
-              <img class="user-avatar shadow-sm border border-solid border-gray-300 rounded-full w-10 h-10" :src="userinfo.photo" />
-              <div>{{userinfo.name}}</div>
+              <img class="user-avatar shadow-sm border border-solid border-gray-300 rounded-full w-10 h-10" :src="userInfo.photo" />
+              <div>{{userInfo.name}}</div>
               <i class="el-icon-caret-bottom"></i>
             </div>
             <el-dropdown-menu slot="dropdown">
@@ -44,9 +44,9 @@
                         line-height: 32px;
                       "
                     >
-                      <img class="w-10 h-10 rounded-full" :src="userinfo.photo" alt="photo">
+                      <img class="w-10 h-10 rounded-full" :src="userInfo.photo" alt="photo">
                     </div>
-                    {{userinfo.name}}
+                    {{userInfo.name}}
                     <svg
                       width="12"
                       height="12"
@@ -192,9 +192,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userinfo'])
+    ...mapGetters(['userInfo'])
+  },
+  mounted() {
+    this.init();
   },
   methods: {
+    async init() {
+      const userInfo = await this.$guard.trackSession();
+      if(userInfo) {
+        this.$store.dispatch('setuserInfo', userInfo);
+      }else{
+        this.$router.push('/?showLogin=1');
+      }
+    },
     logout() {
       this.$guard.logout();
     },

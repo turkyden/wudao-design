@@ -1,41 +1,27 @@
 import Vue from "vue";
 import Vuex from 'vuex';
-import $vue from './main';
 
 Vue.use(Vuex);
 
 // 创建一个新的 store 实例
 const store = new Vuex.Store({
   state: {
-    userinfo: {
-      name: '-',
-      photo: "https://files.authing.co/authing-console/default-user-avatar.png"
-    }
+    userInfo: undefined
   },
   mutations: {
-    SET_USERINFO (state, userinfo) {
-      state.userinfo = { ...state.userinfo, ...userinfo };
+    SET_userInfo (state, userInfo) {
+      state.userInfo = { ...state.userInfo, ...userInfo };
     },
   },
   actions: {
-    async login({ commit }) {
-      // 获取用户信息
-      try {
-        const userInfo = await $vue.$guard.trackSession();
-        if(userInfo) {
-          commit('SET_USERINFO', userInfo);
-          return true
-        }else{
-          return false
-        }
-      } catch (error) {
-        console.log(error);
-        return false
+    setuserInfo({ commit }, userInfo) {
+      if(userInfo){
+        commit('SET_userInfo', userInfo);
       }
-    }
+    },
   },
   getters: {
-    userinfo: state => state.userinfo,
+    userInfo: state => state.userInfo,
     isWhiteListed: state => [
       "brainzhou",
       "karlyzhu",
