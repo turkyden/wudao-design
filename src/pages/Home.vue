@@ -104,6 +104,9 @@ export default {
     async init() {
       const userInfo = await this.$guard.trackSession();
       this.$store.dispatch('setuserInfo', userInfo);
+      if(this.$route.query.showLogin == 1) {
+        this.showLoginModel();
+      }
     },
     showLoginModel() {
       if(!this.hasInitialed) {
