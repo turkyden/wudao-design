@@ -135,6 +135,10 @@ html {
   color: #000
 }
 
+body {
+  background-color: #000;
+}
+
 .dark {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,transparent,rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
