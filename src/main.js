@@ -7,7 +7,6 @@ import router from "./router.js";
 import store from "./store.js";
 import confetti from "canvas-confetti";
 import VueClipboard from "vue-clipboard2";
-import TxcChangeLog from "txc-change-log";
 import "highlight.js/styles/atom-one-dark.css";
 import NProgress from "nprogress"; // progress bar
 
@@ -30,9 +29,6 @@ Vue.use(GuardPlugin, {
   // 如果你配置了多个回调地址，也可以手动指定（此地址也需要加入到应用的「登录回调 URL」中）：
   // redirectUri: "YOUR_REDIRECT_URI"
 });
-
-const txcChangeLog = new TxcChangeLog({ id: 607788 });
-txcChangeLog.activateChangeLog();
 
 Vue.use(VueCropper);
 Vue.use(VueSignature);
